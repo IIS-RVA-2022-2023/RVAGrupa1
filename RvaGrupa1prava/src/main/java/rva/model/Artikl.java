@@ -2,9 +2,12 @@ package rva.model;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Artikl implements Serializable {
 
 	private static final long serialVersionUID=1L;
