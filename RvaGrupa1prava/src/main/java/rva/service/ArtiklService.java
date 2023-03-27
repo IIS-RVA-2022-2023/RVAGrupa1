@@ -34,4 +34,12 @@ public class ArtiklService {
 	public List<Artikl> getAllArtikliByPocetakNaziva(String pocetakNaziva){
 		return artiklRepository.getArtikliByPocetakNaziva(pocetakNaziva.toLowerCase());
 	}
+	
+	public Artikl addArtikl(Artikl artikl) {
+		return artiklRepository.save(artikl);
+	}
+	
+	public void deleteById(int id) {
+		artiklRepository.deleteById(id);
+	}
 }

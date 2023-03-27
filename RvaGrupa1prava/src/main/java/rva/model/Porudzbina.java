@@ -3,6 +3,9 @@ package rva.model;
 import java.io.Serializable;
 import java.sql.Date;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
@@ -33,6 +36,7 @@ public class Porudzbina implements Serializable{
 	private boolean placeno;
 	
 	@ManyToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name="dobavljac")
 	private Dobavljac dobavljac;
 
