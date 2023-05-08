@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { Artikl } from 'src/app/models/artikl';
+import { ArtiklService } from 'src/app/services/artikl.service';
 
 @Component({
   selector: 'app-artikl',
@@ -7,4 +11,23 @@ import { Component } from '@angular/core';
 })
 export class ArtiklComponent {
 
+  subscription!: Subscription;
+  displayedColumns = ['id', 'naziv', 'proizvodjaca', 'actions'];
+  dataSource!: MatTableDataSource<Artikl>;
+
+  constructor(private artiklService: ArtiklService) { }
+
+  ngOnInit(): void {  this.loadData(); }
+
+  public loadData() {
+    this.subscription = this.artiklService.getAllArtikli().subscribe(
+      data => {
+        //console.log(data);
+        this.dataSource = new MatTableDataSource(data);
+      },
+      error => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+  }
 }
