@@ -6,7 +6,7 @@ import { PorudzbinaComponent } from './components/porudzbina/porudzbina.componen
 
 const routes: Routes =  [ { path: 'artikl', component: ArtiklComponent },   
 { path: 'dobavljac', component: DobavljacComponent },
-{ path: 'porudzbina', component: PorudzbinaComponent }
+{ path: 'porudzbina', component: PorudzbinaComponent },
 { path: '', redirectTo: '/artikl', pathMatch: 'full'}
 ];
 
