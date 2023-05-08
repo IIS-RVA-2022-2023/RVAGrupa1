@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Subscription } from 'rxjs';
 import { Artikl } from 'src/app/models/artikl';
 import { ArtiklService } from 'src/app/services/artikl.service';
 
@@ -17,7 +17,7 @@ export class ArtiklComponent {
 
   constructor(private artiklService: ArtiklService) { }
 
-  ngOnInit(): void {  this.loadData(); }
+  ngOnInit(): void { this.loadData(); }
 
   public loadData() {
     this.subscription = this.artiklService.getAllArtikli().subscribe(
@@ -30,4 +30,6 @@ export class ArtiklComponent {
       }
     );
   }
+
+  ngOnDestroy(): void { this.subscription.unsubscribe(); }
 }
