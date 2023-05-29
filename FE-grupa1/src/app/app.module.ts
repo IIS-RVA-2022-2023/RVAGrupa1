@@ -21,8 +21,16 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { ArtiklDialogComponent } from './components/dialogs/artikl-dialog/artikl-dialog.component';
 import { DobavljacDialogComponent } from './components/dialogs/dobavljac-dialog/dobavljac-dialog.component';
+import { StavkaPorudzbineDialogComponent } from './components/dialogs/stavka-porudzbine-dialog/stavka-porudzbine-dialog.component';
+import { PorudzbinaDialogComponent } from './components/dialogs/porudzbina-dialog/porudzbina-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +40,9 @@ import { DobavljacDialogComponent } from './components/dialogs/dobavljac-dialog/
     DobavljacComponent,
     StavkaPorudzbineComponent,
     ArtiklDialogComponent,
-    DobavljacDialogComponent
+    DobavljacDialogComponent,
+    StavkaPorudzbineDialogComponent,
+    PorudzbinaDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -48,10 +58,15 @@ import { DobavljacDialogComponent } from './components/dialogs/dobavljac-dialog/
     MatToolbarModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatToolbarModule,
     MatFormFieldModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    MatDatepickerModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatNativeDateModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

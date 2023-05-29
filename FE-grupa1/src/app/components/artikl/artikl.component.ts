@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { Artikl } from 'src/app/models/artikl';
@@ -15,17 +17,21 @@ export class ArtiklComponent {
 
   subscription!: Subscription;
   displayedColumns = ['id', 'naziv', 'proizvodjaca', 'actions'];
-  dataSource!: MatTableDataSource<Artikl>;
+  dataSourceArtikl!: MatTableDataSource<Artikl>;
+  @ViewChild(MatSort, {static: false}) sort!: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator!: MatPaginator;
 
   constructor(private artiklService: ArtiklService, private dialog: MatDialog) { }
 
-  ngOnInit(): void { this.loadData(); }
-
-  public loadData() {
+  ngOnInit(): void {
+    this.loadData();
+  }
+  loadData(): void {
     this.subscription = this.artiklService.getAllArtikli().subscribe(
       data => {
-        //console.log(data);
-        this.dataSource = new MatTableDataSource(data);
+        this.dataSourceArtikl = new MatTableDataSource(data);
+        this.dataSourceArtikl.sort = this.sort;
+        this.dataSourceArtikl.paginator = this.paginator;
       },
       error => {
         console.log(error.name + ' ' + error.message);
@@ -33,13 +39,24 @@ export class ArtiklComponent {
     );
   }
 
-  public openDialog(flag: number, artikl?: Artikl) : void {
-    const dialogRef = this.dialog.open(ArtiklDialogComponent, {data: (artikl?artikl: new Artikl())});
+  public openDialog(flag: number, artikl?: Artikl): void {
+    const dialogRef = this.dialog.open(ArtiklDialogComponent, { data: (artikl ? artikl : new Artikl()) });
     dialogRef.componentInstance.flagArtDialog = flag;
-    dialogRef.afterClosed().subscribe(res => {if(res==1) this.loadData();})
+    dialogRef.afterClosed().subscribe(res => { if (res == 1) this.loadData() });
   }
 
-  ngOnDestroy(): void { this.subscription.unsubscribe(); }
+  applyFilter(filterValue: any) {
+    filterValue = filterValue.target.value
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLocaleLowerCase();
+    this.dataSourceArtikl.filter = filterValue; //    JaBuKa    --> JaBuKa --> jabuka
+  }
 
-  ngOnChanges(){this.loadData();}
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  ngOnChanges() {
+    this.loadData();
+  }
 }
